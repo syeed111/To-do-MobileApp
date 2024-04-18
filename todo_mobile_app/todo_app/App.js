@@ -1,18 +1,14 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList, Alert } from "react-native";
 import Header from "./components/header";
 import TodoItem from "./components/todoItem";
+import AddTodo from "./components/addTodo";
 
 export default function App() {
   const [todos, setTodos] = useState([
     { item: "todo2", id: "2" },
     { item: "todo1", id: "1" },
     { item: "todo3", id: "3" },
-    { item: "todo2", id: "2" },
-    { item: "todo1", id: "1" },
-    { item: "todo3", id: "3" },
-    { item: "todo2", id: "2" },
-    { item: "todo1", id: "1" },
   ]);
 
   const pressHandler = (key) => {
@@ -20,10 +16,23 @@ export default function App() {
       return prevTodos.filter((item) => item.id != key);
     });
   };
+
+  const addTodo = (text) => {
+    if (text.length > 2) {
+      setTodos((prevTodos) => {
+        return [{ item: text, id: Math.random().toString() }, ...prevTodos];
+      });
+    } else {
+      Alert.alert("Empty todo", "There must be some text", [
+        { text: "Okey", onPress: () => console.log("Alert dismissed") },
+      ]);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Header />
-
+      <AddTodo add={addTodo} />
       <View style={styles.content}>
         <View style={styles.list}>
           <FlatList
