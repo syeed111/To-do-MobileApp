@@ -8,7 +8,7 @@ export default function AddTodo({ add }) {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <TextInput
         style={styles.input}
         multiline
