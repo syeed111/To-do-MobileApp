@@ -1,5 +1,12 @@
-import React, { useContext } from "react";
-import { StyleSheet } from "react-native";
+import React from "react";
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Alert,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import Header from "./components/header";
 import TodoList from "./components/todoList";
 import AddTodo from "./components/addTodo";
@@ -31,11 +38,19 @@ export default function App() {
   // };
 
   return (
-    <todoContextProvider>
-      <Header />
-
-      <TodoList />
-    </todoContextProvider>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Keyboard.dismiss();
+      }}
+    >
+      <View style={styles.container}>
+        <Header />
+        <todoContextProvider>
+          <TodoList />
+        </todoContextProvider>
+        <View style={styles.content}></View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
