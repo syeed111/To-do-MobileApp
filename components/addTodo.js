@@ -1,12 +1,13 @@
 import { StyleSheet, Text, TextInput, View, Button } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { todoContext } from "../Contexts/todoContexts";
 
-export default function AddTodo({ add }) {
-  const [text, setText] = useState("");
-  const changeHandler = (val) => {
-    setText(val);
-  };
-
+export default function AddTodo({}) {
+  // const [todoInput, setTodoInput] = useState("");
+  // const changeHandler = (val) => {
+  //   setTodoInput(val);
+  // };
+  const { todoInput, changeHandler, addTodo } = useContext(todoContext);
   return (
     <View style={styles.container}>
       <TextInput
@@ -15,7 +16,11 @@ export default function AddTodo({ add }) {
         placeholder="new todo..."
         onChangeText={changeHandler}
       />
-      <Button title="Add todo" color="coral" onPress={() => add(text)} />
+      <Button
+        title="Add todo"
+        color="coral"
+        onPress={() => addTodo(todoInput)}
+      />
     </View>
   );
 }
